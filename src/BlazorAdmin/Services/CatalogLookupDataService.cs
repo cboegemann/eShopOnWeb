@@ -9,7 +9,6 @@ using BlazorShared.Attributes;
 using BlazorShared.Interfaces;
 using BlazorShared.Models;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace BlazorAdmin.Services;
 
@@ -24,12 +23,12 @@ public class CatalogLookupDataService<TLookupData, TReponse>
     private readonly string _apiUrl;
 
     public CatalogLookupDataService(HttpClient httpClient,
-        IOptions<BaseUrlConfiguration> baseUrlConfiguration,
+        BaseUrlConfiguration baseUrlConfiguration,
         ILogger<CatalogLookupDataService<TLookupData, TReponse>> logger)
     {
         _httpClient = httpClient;
         _logger = logger;
-        _apiUrl = baseUrlConfiguration.Value.ApiBase;
+        _apiUrl = baseUrlConfiguration.ApiBase;
     }
 
     public async Task<List<TLookupData>> List()

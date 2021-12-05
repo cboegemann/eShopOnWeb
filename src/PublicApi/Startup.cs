@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Text;
 using AutoMapper;
 using BlazorShared;
@@ -96,9 +96,8 @@ public class Startup
         services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
         services.AddScoped<ITokenClaimsService, IdentityTokenClaimService>();
 
-        var configSection = Configuration.GetRequiredSection(BaseUrlConfiguration.CONFIG_NAME);
-        services.Configure<BaseUrlConfiguration>(configSection);
-        var baseUrlConfig = configSection.Get<BaseUrlConfiguration>();
+        var baseUrlConfig = new BaseUrlConfiguration();
+        Configuration.Bind(BaseUrlConfiguration.CONFIG_NAME, baseUrlConfig);
 
         services.AddMemoryCache();
 
